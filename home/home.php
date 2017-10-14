@@ -312,6 +312,7 @@ if(isset($_SESSION["username"]) && ($_SESSION['password'] ) ){
 
 </body>
 </html>
+<?php
 }else{
 ?>
 
