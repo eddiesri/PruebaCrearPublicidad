@@ -1,9 +1,17 @@
 <?php 
 session_start();
+/* en este archivo se contienen las funciones de conexión con la base de datos del Home, toda la parte de editar,crear, eliminar y listar las electivas y los estudiantes */
 include '../conexion/conexion_db.php';
 date_default_timezone_set('America/Bogota');
 
-//Registrar un nuevo negocio
+////////////////////////////////////////////////////// /////////////////// //////////////////////////////////////////////////////
+////////////////////////////////////////////////////// /////////////////// //////////////////////////////////////////////////////
+////////////////////////////////////////////////////// METODOS ELECTIVAS   //////////////////////////////////////////////////////
+////////////////////////////////////////////////////// /////////////////// //////////////////////////////////////////////////////
+////////////////////////////////////////////////////// /////////////////// //////////////////////////////////////////////////////
+
+
+//Traer electivas, filtra por nombre o por profesor, trae los botones de inscribirse, ver estudiantes, editar y borrar, estos dos ultimos dependiendo si el usuario es administrador
 
 if (isset($_POST['buscar_electivas'])){
 	if ($_POST['criterio'] == 'nombre'){
@@ -39,6 +47,8 @@ if (isset($_POST['buscar_electivas'])){
 	exit();
 }
 
+// Inscribir estudiantes en una asignatura y llevar la cuenta de cupos disponibles y ocupados
+
 if (isset($_POST['gestion_inscripcion'])){
 	$fila2=mysqli_fetch_array(mysqli_query($con,"SELECT * FROM users_x_electivecourse Where user='$_SESSION[id]' and elective_course='$_POST[id_elect]'"));
 	if ($fila2){
@@ -66,6 +76,8 @@ if (isset($_POST['gestion_inscripcion'])){
 	exit();
 }
 
+// crear / editar una asignatura , se tiene en cuenta si la cantidad de cupos totales es menor a los ocupados
+
 if (isset($_POST['nueva_electiva'])){
 	if ($_POST['id_elect'] == ''){
 
@@ -78,7 +90,7 @@ if (isset($_POST['nueva_electiva'])){
 
 		$ocupado= $fila1['occupied'];
 		$disponibles= $_POST['cupos'] - $fila1['occupied'];
-		if ($disponibles>0){
+		if ($disponibles>=s0){
 			mysqli_query($con,"UPDATE electivecourse SET name='$_POST[nombre]' ,teacher='$_POST[prof]' ,description='$_POST[descr]' ,available='$disponibles' ,total='$_POST[cupos]'   WHERE id='$_POST[id_elect]' ");
 			echo "ok";			
 		}else{
@@ -89,11 +101,15 @@ if (isset($_POST['nueva_electiva'])){
 	exit();
 }
 
+// Se traen los datos de una asignatura cuando esta va a ser editada
+
 if (isset($_POST['datos_electiva'])){
 	$fila=mysqli_fetch_array(mysqli_query($con,"SELECT * FROM electivecourse Where id='$_POST[id_elect]'"));
 	echo $fila['name'].";;".$fila['teacher'].";;".$fila['description'].";;".$fila['total'];
 	exit();
 }
+
+// se elimina una electiva 
 
 if (isset($_POST['borrar_electivas'])){
 
@@ -102,6 +118,8 @@ if (isset($_POST['borrar_electivas'])){
 
 	exit();
 }
+
+// Se trae la lista de estuddiantes de una asignatura
 
 if (isset($_POST['buscar_estudiantes_materia'])){
 	$query = "SELECT * FROM users_x_electivecourse Where elective_course ='$_POST[id_elect]'";
@@ -115,13 +133,17 @@ if (isset($_POST['buscar_estudiantes_materia'])){
 }
 
 
-////////////////////////////////////////////////////// METODOS ESTUDIANTES //////////////////////////////////
-////////////////////////////////////////////////////// METODOS ESTUDIANTES //////////////////////////////////
-////////////////////////////////////////////////////// METODOS ESTUDIANTES //////////////////////////////////
-////////////////////////////////////////////////////// METODOS ESTUDIANTES //////////////////////////////////
-////////////////////////////////////////////////////// METODOS ESTUDIANTES //////////////////////////////////
+////////////////////////////////////////////////////// /////////////////// //////////////////////////////////////////////////////
+////////////////////////////////////////////////////// /////////////////// //////////////////////////////////////////////////////
+////////////////////////////////////////////////////// METODOS ESTUDIANTES //////////////////////////////////////////////////////
+////////////////////////////////////////////////////// /////////////////// //////////////////////////////////////////////////////
+////////////////////////////////////////////////////// /////////////////// //////////////////////////////////////////////////////
+
+
+//Se trae la lista de estudiantes, filtrada por nombre de usuario, nombre, apellido o código, trae los botones de ver materias, editar y borrar, estos dos ultimos dependiendo si el usuario es administrador
+
 if (isset($_POST['buscar_estudiante'])){
-	$query = "SELECT * FROM users Where (username LIKE ('%$_POST[valor]%') OR firstname LIKE ('%$_POST[valor]%') OR lastname LIKE ('%$_POST[valor]%'))";
+	$query = "SELECT * FROM users Where (username LIKE ('%$_POST[valor]%') OR code LIKE ('%$_POST[valor]%') OR firstname LIKE ('%$_POST[valor]%') OR lastname LIKE ('%$_POST[valor]%'))";
 	
 	$sql1= mysqli_query($con,$query);
 	while($fila1=mysqli_fetch_array($sql1)){
@@ -140,6 +162,8 @@ if (isset($_POST['buscar_estudiante'])){
 	exit();
 }
 
+// se trae la lista de electivas inscritas por un estudiante
+
 if (isset($_POST['buscar_materias_estudiante'])){
 	$query = "SELECT * FROM users_x_electivecourse Where user ='$_POST[id_est]'";
 	$sql1= mysqli_query($con,$query);
@@ -151,12 +175,13 @@ if (isset($_POST['buscar_materias_estudiante'])){
 	exit();
 }
 
+// Edita o crea un estudiante.
+
 if (isset($_POST['nuevo_estudiante'])){
 
 	if ($_POST['id_est'] == ''){
 		$fila=mysqli_fetch_array(mysqli_query($con,"SELECT username FROM users Where username='$_POST[user]' or code='$_POST[code]'"));
 		if (!$fila['username']){
-		// $contra=md5($_POST['pass']);
 		$contra=($_POST['pass']);
 		$admin = 0;
 		mysqli_query($con,"INSERT INTO users (firstname ,lastname,username,password,admin,code) 
@@ -166,7 +191,6 @@ if (isset($_POST['nuevo_estudiante'])){
 			echo "ya";
 		}
 	}else{
-		// $contra=md5($_POST['pass']);
 		$contra=($_POST['pass']);
 		mysqli_query($con,"UPDATE users SET firstname='$_POST[firstname]',lastname='$_POST[lastname]',username='$_POST[user]',code='$_POST[code]',password='$contra'  WHERE id='$_POST[id_est]' ");
 		echo "ok";
@@ -174,12 +198,16 @@ if (isset($_POST['nuevo_estudiante'])){
 	exit();
 }
 
+// Se traen los datos de un estudiante para ser editada
+
 if (isset($_POST['datos_estudiante'])){
 	$fila=mysqli_fetch_array(mysqli_query($con,"SELECT * FROM users Where id='$_POST[id_est]'"));
 	echo $fila['firstname'].";;".$fila['lastname'].";;".$fila['username'].";;".$fila['code'];
 
 	exit();
 }
+
+// se elimina un estudiante
 
 if (isset($_POST['borrar_estudiante'])){
 

@@ -1,7 +1,7 @@
 <?php
 session_start();
 /*
-este codigo cierra sesión, elimina las variables de cookies y sesión y guarda la hora de salida
+este codigo cierra sesión, elimina las variables de sesión
 */
 include 'conexion/conexion_db.php';
 date_default_timezone_set('America/Bogota');

@@ -8,7 +8,7 @@ date_default_timezone_set('America/Bogota');
 if (isset($_POST['buscar'])){
 	
 
-	// $contra1=md5($_POST['pasd']);
+
 	$contra1=$_POST['pasd'];
 	$sql0 = mysqli_query($con,"SELECT * FROM  users WHERE code='$_POST[user]' AND password='$contra1'");
 	$i=0;
@@ -28,7 +28,7 @@ if (isset($_POST['buscar'])){
 		$_SESSION['lastname']=$fila0['lastname'];
 		$_SESSION['admin']=$fila0['admin'];	
 		$_SESSION['id']=$fila0['id'];	
-		echo "1";	  // ya es segura puede continuar
+		echo "1";	  // puede continuar
 	}
 	exit();	
 }

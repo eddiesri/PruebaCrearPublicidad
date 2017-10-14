@@ -1,5 +1,6 @@
 <?php
 session_start();
+/* Plantilla HTML de la página del home, con las restricciones de usuario administrador*/
 date_default_timezone_set('America/Bogota');
 if(isset($_SESSION["username"]) && ($_SESSION['password'] ) ){
 ?>

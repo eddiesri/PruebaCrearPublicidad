@@ -6,7 +6,7 @@ date_default_timezone_set('America/Bogota');
 
 
 
-//Registrar un nuevo negocio
+//Registrar un nuevo usuario
 
 if (isset($_POST['registrar'])){
 	$fila=mysqli_fetch_array(mysqli_query($con,"SELECT username FROM users Where username='$_POST[user]' or code='$_POST[code]'"));

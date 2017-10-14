@@ -1,5 +1,7 @@
 $(document).on('ready',function(){
 
+
+	// guarda la información digitada en el formulario y la envía en una solicitud ajax, se valida si el usuario ya se encuentra registrado
 	$('#ingresa').submit(function(e){
 
 		e.preventDefault();
@@ -22,7 +24,7 @@ $(document).on('ready',function(){
 					type: 'POST',
 					async: false,
 					data: {
-						registrar: 1, // bandera añadir producto
+						registrar: 1, 
 						firstname:firstname,
 						lastname:lastname,
 						user:user,

@@ -1,17 +1,18 @@
 $(document).on('ready',function(){
-	$('#myModalcont').on('hidden.bs.modal',function(){
-		$(".texto3").val("");
-	});
 
-	$('#inicio').submit(function(e){//iniciar sesión
+
+// al procesar el formulario de inicio de sesión se obtienen los valores y se invoca la funcion, buscar
+	$('#inicio').submit(function(e){
 		e.preventDefault();
-		var pasd = $('#contrasena').val();	// obtengo los valores ingresados
-		var user = $('#usuario').val();	// obtengo los valores ingresados
-		buscarpersonal(pasd,user)
+		var pasd = $('#contrasena').val();
+		var user = $('#usuario').val();	
+		buscar(pasd,user)
 	})
 })
 
-function buscarpersonal(pasd,user){
+
+// se hace la solicitud ajax y se valida que exista y que esten correctos los datos
+function buscar(pasd,user){
 	$.ajax({
 		url: 'actualiza.php',
 		type: 'POST',
