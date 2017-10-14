@@ -1,123 +1,77 @@
--- phpMyAdmin SQL Dump
--- version 4.7.4
--- https://www.phpmyadmin.net/
---
--- Servidor: 127.0.0.1
--- Tiempo de generación: 14-10-2017 a las 06:23:26
--- Versión del servidor: 10.1.26-MariaDB
--- Versión de PHP: 7.0.23
+/*
+Navicat MySQL Data Transfer
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
-SET time_zone = "+00:00";
+Source Server         : heroku job
+Source Server Version : 50636
+Source Host           : us-cdbr-iron-east-05.cleardb.net:3306
+Source Database       : heroku_90bf4ec7727e70a
 
+Target Server Type    : MYSQL
+Target Server Version : 50636
+File Encoding         : 65001
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+Date: 2017-10-14 01:30:45
+*/
 
---
--- Base de datos: `sistema_electivas_universitario`
---
+SET FOREIGN_KEY_CHECKS=0;
 
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `electivecourse`
---
-
+-- ----------------------------
+-- Table structure for electivecourse
+-- ----------------------------
+DROP TABLE IF EXISTS `electivecourse`;
 CREATE TABLE `electivecourse` (
-  `id` int(255) NOT NULL,
+  `id` int(255) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
   `teacher` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
   `description` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
   `available` int(255) NOT NULL,
   `total` int(255) NOT NULL,
-  `occupied` int(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `occupied` int(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
--- --------------------------------------------------------
+-- ----------------------------
+-- Records of electivecourse
+-- ----------------------------
+INSERT INTO `electivecourse` VALUES ('11', 'Matematicas 1', 'Juan Perez', 'Algebra BÃ¡sica', '29', '31', '2');
+INSERT INTO `electivecourse` VALUES ('21', 'Literatura', 'Dario MejÃ­a', 'IntroducciÃ³n a la literatura espaÃ±ola', '19', '20', '1');
 
---
--- Estructura de tabla para la tabla `users`
---
-
+-- ----------------------------
+-- Table structure for users
+-- ----------------------------
+DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
-  `id` int(255) NOT NULL,
+  `id` int(255) NOT NULL AUTO_INCREMENT,
   `admin` int(1) NOT NULL,
+  `code` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
   `username` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
   `password` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
   `firstname` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `lastname` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `lastname` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
---
--- Volcado de datos para la tabla `users`
---
+-- ----------------------------
+-- Records of users
+-- ----------------------------
+INSERT INTO `users` VALUES ('9', '1', '12345678', 'Admin@plataformaiuniv.co', '12345678', 'Administrador', 'Universitario');
+INSERT INTO `users` VALUES ('11', '0', '2135124', 'jpal@plataformaiuniv.co', '123456', 'Juan', 'Palacios');
 
-INSERT INTO `users` (`id`, `admin`, `username`, `password`, `firstname`, `lastname`) VALUES
-(1, 1, 'Admin@plataformaiuniv.com', '1234', 'eduardo', 'cardona');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `users_x_electivecourse`
---
-
+-- ----------------------------
+-- Table structure for users_x_electivecourse
+-- ----------------------------
+DROP TABLE IF EXISTS `users_x_electivecourse`;
 CREATE TABLE `users_x_electivecourse` (
   `user` int(255) NOT NULL,
   `elective_course` int(255) NOT NULL,
-  `rowid` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `rowid` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`rowid`)
+) ENGINE=InnoDB AUTO_INCREMENT=81 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
---
--- Índices para tablas volcadas
---
-
---
--- Indices de la tabla `electivecourse`
---
-ALTER TABLE `electivecourse`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `username` (`username`);
-
---
--- Indices de la tabla `users_x_electivecourse`
---
-ALTER TABLE `users_x_electivecourse`
-  ADD PRIMARY KEY (`rowid`);
-
---
--- AUTO_INCREMENT de las tablas volcadas
---
-
---
--- AUTO_INCREMENT de la tabla `electivecourse`
---
-ALTER TABLE `electivecourse`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT de la tabla `users`
---
-ALTER TABLE `users`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
--- AUTO_INCREMENT de la tabla `users_x_electivecourse`
---
-ALTER TABLE `users_x_electivecourse`
-  MODIFY `rowid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+-- ----------------------------
+-- Records of users_x_electivecourse
+-- ----------------------------
+INSERT INTO `users_x_electivecourse` VALUES ('11', '11', '51');
+INSERT INTO `users_x_electivecourse` VALUES ('51', '21', '61');
+INSERT INTO `users_x_electivecourse` VALUES ('51', '11', '71');
