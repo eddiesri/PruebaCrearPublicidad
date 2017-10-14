@@ -312,8 +312,12 @@ if(isset($_SESSION["username"]) && ($_SESSION['password'] ) ){
 
 </body>
 </html>
-<?php
 }else{
+?>
 
+<script type="text/javascript">
+	window.location="index.php";// ir al inicio
+</script>
+<?php
 }
 ?>
