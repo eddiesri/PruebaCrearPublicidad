@@ -316,7 +316,7 @@ if(isset($_SESSION["username"]) && ($_SESSION['password'] ) ){
 ?>
 
 <script type="text/javascript">
-	window.location="index.php";// ir al inicio
+	window.location="../index.php";// ir al inicio
 </script>
 <?php
 }
