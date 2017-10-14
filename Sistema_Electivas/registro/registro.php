@@ -22,14 +22,14 @@ date_default_timezone_set('America/Bogota');
 
 		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 
-		<script src="../../includes/js/jquery-1.11.3.min.js"></script>
+		<script src="../includes/js/jquery-1.11.3.min.js"></script>
 
-		<script src="../../includes/js/bootstrap.min.js"></script>
+		<script src="../includes/js/bootstrap.min.js"></script>
 
-		<link rel="stylesheet" href="../../includes/css/bootstrap.min.css">
+		<link rel="stylesheet" href="../includes/css/bootstrap.min.css">
 
 
-		<script src="../../js/registro.js"></script>
+		<script src="../js/registro.js"></script>
 
 
 
@@ -66,48 +66,59 @@ date_default_timezone_set('America/Bogota');
 
 
 					<div class="form-group">
-						<div class="col-sm-2 col-sm-12">
-							<label for="user" class="col-sm-2 control-label">Nombre:</label>
+						<div class="col-sm-4 col-xs-12">
+							<label for="user" class=" control-label">Nombre:</label>
 						</div>
-						<div class="col-sm-4">
-							<input type="text" name="firstname" id="firstname"  placeholder="Nombre" class="texto form-control" value="" required>	
-						</div>
-						<div class="col-sm-2 col-sm-12">
-							<label for="pass" class="col-sm-2 control-label">Apellido: </label>
-						</div>
-						<div class=" col-sm-4">
-							<input type="text" name="lastname" id="lastname"  placeholder="Apellido" class="texto form-control" required>	
+						<div class="col-sm-8">
+							<input type="text" name="firstname" id="firstname"  placeholder="Nombre" class="estcampos form-control" value="" required>	
 						</div>
 					</div>
 			
 
 					<div class="form-group">
-						<div class="col-sm-2 col-sm-12">
+						<div class="col-sm-4 col-xs-12">
+							<label for="pass" class=" control-label">Apellido: </label>
+						</div>
+						<div class=" col-sm-8">
+							<input type="text" name="lastname" id="lastname"  placeholder="Apellido" class="estcampos form-control" required>	
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-4 col-xs-12">
+							<label for="pass" class=" control-label">Código: </label>
+						</div>
+						<div class=" col-sm-8">
+							<input type="text" name="code" id="code"  placeholder="Código" class="estcampos form-control" required>	
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="col-sm-4 col-xs-12">
 							<label for="user" class="control-label">Usuario (E-Mail):</label>
 						</div>
-						<div class="col-sm-4 col-sm-12">
-							<input type="email" name="user" id="user"  placeholder="Correo Electrónico" class="texto form-control" value="" required>	
+						<div class="col-sm-8 col-xs-12">
+							<input type="email" name="user" id="user"  placeholder="Correo Electrónico" class="estcampos form-control" value="" required>	
 						</div>
 										</div>
 			
 
 					<div class="form-group">
-						<div class="col-sm-2 col-sm-12">
+						<div class="col-sm-4 col-xs-12">
 
 							<label for="pass" class="control-label">Contraseña : </label>
 						</div>
-						<div class=" col-sm-4 col-sm-12">
-							<input type="password" name="pass" id="pass"  placeholder="Contraseña" class="texto form-control" required>	
+						<div class=" col-sm-8 col-xs-12">
+							<input type="password" name="pass" id="pass"  placeholder="Contraseña" class="estcampos form-control" required>	
 						</div>
 					</div>
 
 					<div class="form-group">
-						<div class="col-sm-2 col-sm-12">
+						<div class="col-sm-4 col-xs-12">
 
 							<label for="pass" class="control-label">Repita Contraseña : </label>
 						</div>
-						<div class=" col-sm-4 col-sm-12">
-							<input type="password" name="pass" id="rpass"  placeholder="Contraseña" class="texto form-control" required>	
+						<div class=" col-sm-8 col-xs-12">
+							<input type="password" name="pass" id="rpass"  placeholder="Contraseña" class="estcampos form-control" required>	
 						</div>
 					</div>
 

@@ -74,9 +74,17 @@ if (isset($_POST['nueva_electiva'])){
 			echo "ok";
 
 	}else{
-		echo "ACTUALIZA";
-		mysqli_query($con,"UPDATE electivecourse SET name='$_POST[nombre]' ,teacher='$_POST[prof]' ,description='$_POST[descr]' ,available='$_POST[cupos]' ,total='$_POST[cupos]'   WHERE id='$_POST[id_elect]' ");
-		echo "ok";
+		$fila1=mysqli_fetch_array(mysqli_query($con,"SELECT * FROM electivecourse Where id ='$_POST[id_elect]' "));
+
+		$ocupado= $fila1['occupied'];
+		$disponibles= $_POST['cupos'] - $fila1['occupied'];
+		if ($disponibles>0){
+			mysqli_query($con,"UPDATE electivecourse SET name='$_POST[nombre]' ,teacher='$_POST[prof]' ,description='$_POST[descr]' ,available='$disponibles' ,total='$_POST[cupos]'   WHERE id='$_POST[id_elect]' ");
+			echo "ok";			
+		}else{
+			echo "no";
+		}
+
 	}
 	exit();
 }
@@ -101,7 +109,7 @@ if (isset($_POST['buscar_estudiantes_materia'])){
 	while($fila1=mysqli_fetch_array($sql1)){
 		$query2 = "SELECT * FROM users Where id ='$fila1[user]'";
 		$fila2=mysqli_fetch_array(mysqli_query($con,$query2));
-		echo '<li class="list-group-item">'.$fila2['firstname'].' '.$fila2['lastname'].' <br></li>';
+		echo '<li class="list-group-item">'.$fila2['firstname'].' '.$fila2['lastname'].' - '.$fila2['code'].' <br></li>';
 	}
 	exit();
 }
@@ -113,20 +121,20 @@ if (isset($_POST['buscar_estudiantes_materia'])){
 ////////////////////////////////////////////////////// METODOS ESTUDIANTES //////////////////////////////////
 ////////////////////////////////////////////////////// METODOS ESTUDIANTES //////////////////////////////////
 if (isset($_POST['buscar_estudiante'])){
-	$query = "SELECT * FROM users Where admin='0' and (username LIKE ('%$_POST[valor]%') OR firstname LIKE ('%$_POST[valor]%') OR lastname LIKE ('%$_POST[valor]%'))";
+	$query = "SELECT * FROM users Where (username LIKE ('%$_POST[valor]%') OR firstname LIKE ('%$_POST[valor]%') OR lastname LIKE ('%$_POST[valor]%'))";
 	
 	$sql1= mysqli_query($con,$query);
 	while($fila1=mysqli_fetch_array($sql1)){
 		echo '<li class="list-group-item">
 					<div class="col-xs-6"><b>'.$fila1['firstname'].' '.$fila1['lastname'] .'</b>
-					<br>'.$fila1['username'].'</div>
+					<br>'.$fila1['username'].'<br>Código: '.$fila1['code'].'</div>
 					<div class="col-xs-6">
 						<a idmateriasest="'.$fila1['id'].'"class="btn btn-success btn-xs materiasest" href="#?idmateriasest="'.$fila1['id'].'"> Electivas </a>';
 		if($_SESSION['admin'] == '1'){
 		echo '			<a ideditarest="'.$fila1['id'].'"class="btn btn-info btn-xs editarest" href="#?ideditarest="'.$fila1['id'].'"> Editar </a>';
 		echo '			<a idborrarest="'.$fila1['id'].'"class="btn btn-danger btn-xs borrarest" href="#?idborrarest="'.$fila1['id'].'"> Borrar </a>';
 		}
-		echo '		</div><br><br> 
+		echo '		</div><br><br> <br> 
 			  </li>';
 	}
 	exit();
@@ -146,13 +154,13 @@ if (isset($_POST['buscar_materias_estudiante'])){
 if (isset($_POST['nuevo_estudiante'])){
 
 	if ($_POST['id_est'] == ''){
-		$fila=mysqli_fetch_array(mysqli_query($con,"SELECT username FROM users Where username='$_POST[user]'"));
+		$fila=mysqli_fetch_array(mysqli_query($con,"SELECT username FROM users Where username='$_POST[user]' or code='$_POST[code]'"));
 		if (!$fila['username']){
 		// $contra=md5($_POST['pass']);
 		$contra=($_POST['pass']);
 		$admin = 0;
-		mysqli_query($con,"INSERT INTO users (firstname ,lastname,username,password,admin) 
-			VALUES ('$_POST[firstname]','$_POST[lastname]','$_POST[user]','$contra','$admin')");
+		mysqli_query($con,"INSERT INTO users (firstname ,lastname,username,password,admin,code) 
+			VALUES ('$_POST[firstname]','$_POST[lastname]','$_POST[user]','$contra','$admin','$_POST[code]')");
 			echo "ok";
 		}else{
 			echo "ya";
@@ -160,7 +168,7 @@ if (isset($_POST['nuevo_estudiante'])){
 	}else{
 		// $contra=md5($_POST['pass']);
 		$contra=($_POST['pass']);
-		mysqli_query($con,"UPDATE users SET firstname='$_POST[firstname]',lastname='$_POST[lastname]',username='$_POST[user]',password='$contra'  WHERE id='$_POST[id_est]' ");
+		mysqli_query($con,"UPDATE users SET firstname='$_POST[firstname]',lastname='$_POST[lastname]',username='$_POST[user]',code='$_POST[code]',password='$contra'  WHERE id='$_POST[id_est]' ");
 		echo "ok";
 	}
 	exit();
@@ -168,7 +176,7 @@ if (isset($_POST['nuevo_estudiante'])){
 
 if (isset($_POST['datos_estudiante'])){
 	$fila=mysqli_fetch_array(mysqli_query($con,"SELECT * FROM users Where id='$_POST[id_est]'"));
-	echo $fila['firstname'].";;".$fila['lastname'].";;".$fila['username'];
+	echo $fila['firstname'].";;".$fila['lastname'].";;".$fila['username'].";;".$fila['code'];
 
 	exit();
 }

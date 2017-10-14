@@ -267,6 +267,7 @@ function datos_estudiantes(id){
 			$('#lastname').val(cinfo[1]);	
 			$('#firstname').val(cinfo[0]);
 			$('#user').val(cinfo[2]);
+			$('#code').val(cinfo[3]);
 			$('#id_est').val(id);
 			$('#myModalEstudiante').modal('show');
 		}	
@@ -289,6 +290,7 @@ function guarda_estudiante(){
 					user:$('#user').val(),
                     pass:$('#pass').val(),
                     id_est:$('#id_est').val(),
+                    code:$('#code').val(),
 
 				},
 				success:function(result){

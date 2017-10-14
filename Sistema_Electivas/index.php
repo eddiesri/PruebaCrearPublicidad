@@ -17,10 +17,10 @@ if(isset($_SESSION["username"]) && ($_SESSION['password'] ) ){
 	
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<script src="../includes/js/jquery-1.11.3.min.js"></script>
-		<script src="../includes/js/bootstrap.min.js"></script>
-		<link rel="stylesheet" href="../includes/css/bootstrap.min.css">
-		<script src="../js/index.js" type="text/javascript"></script>
+		<script src="includes/js/jquery-1.11.3.min.js"></script>
+		<script src="includes/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="includes/css/bootstrap.min.css">
+		<script src="js/index.js" type="text/javascript"></script>
 	<title>Plataforma</title>
 </head>
 <body>
@@ -44,7 +44,7 @@ if(isset($_SESSION["username"]) && ($_SESSION['password'] ) ){
 								<p align="justify">
 									<br/>
 									Bienvenido, para acceder debes disponer de una cuenta de usuario
-									asociada a tu correo electronico y una contraseña.
+									asociada a tu código y una contraseña.
 								</p>
 
 							</div>
@@ -54,10 +54,10 @@ if(isset($_SESSION["username"]) && ($_SESSION['password'] ) ){
 						<br/>
 							<div class="form-group">
 								<div class="col-md-3 col-xs-12 ">
-									<label for="usuario" class="control-label">Correo electrónico</label>	
+									<label for="usuario" class="control-label">Código</label>	
 								</div>
 								<div class="col-md-7 col-xs-12">
-									<input type="text" name='usuario' id='usuario' placeholder='correo@example.com' class="form-control" required>
+									<input type="text" name='usuario' id='usuario' placeholder='123456' class="form-control" required>
 								</div>	
 							</div>
 							<input type="hidden" id="rowidpersona" value=''>
@@ -65,13 +65,16 @@ if(isset($_SESSION["username"]) && ($_SESSION['password'] ) ){
 								<div class="col-md-3 col-xs-12">
 									<label for="contrasena" class="control-label">Contraseña</label>	
 								</div>
-								<div class="col-sm-7 col-xs-12">
+								<div class="col-md-7 col-xs-12">
 									<input type="password" name='contrasena' id='contrasena' placeholder='****************************' class="texto form-control" required>
 								</div>
 							</div>
 							<div class="form-group">	
-								<div class="col-md-offset-3 col-md-7 col-xs-12">
+								<div class="col-md-offset-3 col-md-7 col-xs-12 ">
 									<input type="submit" class="btn btn-primary btn-block" name="entrar" value="Acceder" >
+								</div><br><br>
+								<div class="col-xs-12 text-center">
+								<b> Si no tienes una cuenta en nuestro portal, <a href="registro/registro.php">¿Deseas Registrarte? </a>.</b>
 								</div>
 							</div>
 						</form>
@@ -82,35 +85,6 @@ if(isset($_SESSION["username"]) && ($_SESSION['password'] ) ){
 	</div>
 </div>
 
-<!-- ///////////////////////////////////////////////////modal contraseña perdida////////////////////////////////////////////////////////////////!-->
-	<div class="modal fade " id="myModalcont" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
-	  	<div class="modal-dialog " role="document">
-	   		<div class="modal-content">
-	     		<div class="modal-header">
-	       			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	       			<h4 class="modal-title" id="myModalLabel">Reestablecer Contraseña</h4>
-	     		</div>
-	      		<div class="modal-body">
-					<form id="ingresacont" method="post" class="form-horizontal">
-						<div class="form-group">
-							<label for="CorreoResp" class="control-label col-sm-3">Correo Electrónico:</label>
-							<div class="col-sm-8">
-								<input type="email" name='CorreoResp' id='CorreoResp' placeholder="correo@example.com" required class="texto3 form-control">
-							</div>
-						</div>
-				</div>
-				<div class="modal-footer">
-						<div class="form-group">
-							<div class="col-sm-offset-3">	
-								<input type="submit" value="Aceptar" name="anadirp" id="anadirp" class="btn btn-primary">
-								<input type="reset" value="Cancelar" name="anadirp" id="anadirp" class="btn btn-danger" data-dismiss="modal">
-							</div>
-						</div>	
-					</form>
-				</div>
-			</div>	
-		</div>
-	</div>
 
 	<br><br>
 </body>

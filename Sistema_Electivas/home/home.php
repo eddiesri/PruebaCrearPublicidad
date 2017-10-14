@@ -7,10 +7,10 @@ if(isset($_SESSION["username"]) && ($_SESSION['password'] ) ){
 	<html>	
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<script src="../../includes/js/jquery-1.11.3.min.js"></script>
-		<script src="../../includes/js/bootstrap.min.js"></script>
-		<link rel="stylesheet" href="../../includes/css/bootstrap.min.css">
-		<script src="../../js/home.js" type="text/javascript"></script>
+		<script src="../includes/js/jquery-1.11.3.min.js"></script>
+		<script src="../includes/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="../includes/css/bootstrap.min.css">
+		<script src="../js/home.js" type="text/javascript"></script>
 	<title>Plataforma</title>
 	
 </head>
@@ -27,6 +27,7 @@ if(isset($_SESSION["username"]) && ($_SESSION['password'] ) ){
 						
 
 						<p>Usuario : <?php echo $_SESSION['username']; ?></p>
+						<p>Código : <?php echo $_SESSION['code']; ?></p>
 						<p>Nombre : <?php echo $_SESSION['firstname']; ?></p>
 						<p>Apellido : <?php echo $_SESSION['lastname'] ?></p>
 						<p><a href="../Salir.php" class="btn btn-danger"> <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Salir</a>
@@ -67,17 +68,20 @@ if(isset($_SESSION["username"]) && ($_SESSION['password'] ) ){
 								<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 								Buscar
 							</button>
+							<?php if($_SESSION['admin'] == '1'){ echo'
 							<button type="button" class="btn btn-success"  id="new">
 								<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 								Nuevo
 							</button>
+							';} ?>
+
 						</div>
 					</div>
 				   </div>
 				   <br>
 				    <div class="row" >
 						<ul class="list-group" id="lista_electivas">
-						<li class="list-group-item">No hay electivas inscritas para este usuario</li>
+						<li class="list-group-item">No hay electivas</li>
 						</ul>
 					</div>
 
@@ -104,10 +108,13 @@ if(isset($_SESSION["username"]) && ($_SESSION['password'] ) ){
 								<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 								Buscar
 							</button>
+							<?php if($_SESSION['admin'] == '1'){ echo'
 							<button type="button" class="btn btn-success"  id="new_est">
 								<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 								Nuevo
 							</button>
+							';} ?>
+
 						</div>
 					</div>
 				   </div>
@@ -155,7 +162,7 @@ if(isset($_SESSION["username"]) && ($_SESSION['password'] ) ){
 							<label for="descr" class=" control-label">Descripción:</label>
 						</div>
 						<div class="col-sm-8">
-							<textarea id="descr" class="form-control" rows="5"></textarea>
+							<textarea id="descr" class="electcampos form-control" rows="5"></textarea>
 						</div>
 					</div>			
 					
@@ -249,7 +256,14 @@ if(isset($_SESSION["username"]) && ($_SESSION['password'] ) ){
 							<input type="text" name="lastname" id="lastname"  placeholder="Apellido" class="estcampos form-control" required>	
 						</div>
 					</div>
-			
+					<div class="form-group">
+						<div class="col-sm-4 col-xs-12">
+							<label for="pass" class=" control-label">Código: </label>
+						</div>
+						<div class=" col-sm-8">
+							<input type="text" name="code" id="code"  placeholder="Código" class="estcampos form-control" required>	
+						</div>
+					</div>
 
 					<div class="form-group">
 						<div class="col-sm-4 col-xs-12">

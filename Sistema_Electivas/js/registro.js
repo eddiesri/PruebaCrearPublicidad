@@ -7,6 +7,7 @@ $(document).on('ready',function(){
 		var firstname= $('#firstname').val() ;
 		var lastname= $('#lastname').val() ;
 		var user= $('#user').val() ;
+		var code= $('#code').val() ;
 		var pass= $('#pass').val() ;
 		var rpass= $('#rpass').val() ;
 		if(pass == rpass ){
@@ -26,6 +27,7 @@ $(document).on('ready',function(){
 						lastname:lastname,
 						user:user,
                         pass:pass,
+                        code:code
 	
 					},
 
