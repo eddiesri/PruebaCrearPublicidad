@@ -1,0 +1,1 @@
+<?php $con = mysqli_connect("localhost", "root", "","sistema_electivas_universitario") or die("No se ha podido establecer la Conexión"); ?>
